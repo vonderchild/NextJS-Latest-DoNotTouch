@@ -8,7 +8,7 @@ export async function getServerSideProps() {
     const response = await client.send(
       new GetObjectCommand({
         Bucket: "test-bucket-73050844263c440b9f227036b8ca8320",
-        Key: "my-secret-page.html",
+        Key: "index.html",
       }),
     );
     const body = await response.Body.transformToString("utf8");

@@ -15,7 +15,7 @@ export async function getServerSideProps() {
     return { props: { file: body } };
   } catch (caught) {
     console.error(caught);
-    return { props: { file: "there was some error" } };
+    return { props: { file: caught } };
   }
 }
 

